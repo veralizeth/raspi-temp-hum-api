@@ -39,8 +39,10 @@ public class TempehumApplication {
 
 			Optional<User> user = userRepository.findById(4);
 
-			for (Device d : user.get().getDevices()){
-				log.info(d.getName());
+			if (user.isPresent()) {
+				for (Device d : user.get().getDevices()) {
+					log.info(d.getDeviceName());
+				}
 			}
 
 		};
