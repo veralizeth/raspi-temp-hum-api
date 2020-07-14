@@ -31,12 +31,11 @@ public class Device implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
+    public String getDeviceName() {
         return deviceName;
     }
 
-    public void setName(String deviceName) {
+    public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
     }
-
 }
