@@ -52,5 +52,4 @@ public class User implements Serializable {
 
     public List<Device> getDevices() {return devices;}
 
-
 }
