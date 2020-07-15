@@ -1,8 +1,8 @@
 package com.tempo.tempehum.accessingdatapostgres.model;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 // marker annotation, which is used to discover persistent entities
 @Entity // This tells Hibernate to make a table out of this class
@@ -18,7 +18,10 @@ public class Device implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "device", fetch = FetchType.EAGER)
-    private List<Temperature> temperatures = new ArrayList<>();
+    private Set<Temperature> temperatures = new HashSet<>();
+
+    @OneToMany(mappedBy = "device", fetch = FetchType.EAGER)
+    private Set<Humidity> humidities = new HashSet<>();
 
     public Device() {
     }
@@ -42,5 +45,6 @@ public class Device implements Serializable {
         this.deviceName = deviceName;
     }
 
-    public List<Temperature> getTemperatures() {return temperatures;}
+    public Set<Temperature> getTemperatures() {return temperatures;}
+    public Set<Humidity> getHumidities() {return humidities;}
 }
