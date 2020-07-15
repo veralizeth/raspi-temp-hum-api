@@ -23,6 +23,9 @@ public class Device implements Serializable {
     @OneToMany(mappedBy = "device", fetch = FetchType.EAGER)
     private Set<Humidity> humidities = new HashSet<>();
 
+    @OneToMany(mappedBy = "device", fetch = FetchType.EAGER)
+    private Set<Timer> timers = new HashSet<>();
+
     public Device() {
     }
 
@@ -47,4 +50,5 @@ public class Device implements Serializable {
 
     public Set<Temperature> getTemperatures() {return temperatures;}
     public Set<Humidity> getHumidities() {return humidities;}
+    public Set<Timer> getTimers() {return timers;}
 }
