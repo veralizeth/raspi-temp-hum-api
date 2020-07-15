@@ -1,13 +1,8 @@
 package com.tempo.tempehum;
 
-import com.tempo.tempehum.accessingdatapostgres.model.Device;
-import com.tempo.tempehum.accessingdatapostgres.model.Humidity;
-import com.tempo.tempehum.accessingdatapostgres.model.Temperature;
-import com.tempo.tempehum.accessingdatapostgres.model.User;
-import com.tempo.tempehum.accessingdatapostgres.repository.DeviceRepository;
-import com.tempo.tempehum.accessingdatapostgres.repository.HumidityRespository;
-import com.tempo.tempehum.accessingdatapostgres.repository.TemperatureRepository;
-import com.tempo.tempehum.accessingdatapostgres.repository.UserRepository;
+import com.tempo.tempehum.accessingdatapostgres.model.*;
+import com.tempo.tempehum.accessingdatapostgres.repository.*;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -15,6 +10,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -30,7 +28,8 @@ public class TempehumApplication {
 	public CommandLineRunner mappingDemo(UserRepository userRepository,
 										 DeviceRepository deviceRepository,
 										 TemperatureRepository temperatureRepository,
-										 HumidityRespository humidityRespository) {
+										 HumidityRespository humidityRespository,
+										 TimerRepository timerRepository) {
 		return args -> {
 
 //			// create a new User
@@ -58,10 +57,16 @@ public class TempehumApplication {
 //			Device device2 = new Device("Raspi3", user2);
 //			deviceRepository.save(device2);
 
+
 			//create and save new Humidities
 //			Optional<Device> device2 = deviceRepository.findById(8);
 //			humidityRespository.save(new Humidity(20.9, device2.get(),"23-01-12"));
 
+//			// create and save new Humidities
+//			Optional<Device> device2 = deviceRepository.findById(8);
+//			Timestamp startTime = Timestamp.valueOf(LocalDateTime.now(ZoneId.of("UTC")));
+//			Timestamp endTime = Timestamp.valueOf("2020-05-01 12:30:00");
+//			timerRepository.save(new Timer(startTime, endTime, true, device2.get()));
 
 			Optional<User> user = userRepository.findById(4);
 
@@ -86,6 +91,13 @@ public class TempehumApplication {
 				for (Humidity h : device1.get().getHumidities()) {
 					System.out.println(h.getValue());
 //					log.info(t.getValue());
+				}
+			}
+
+			if (device1.isPresent()) {
+				for (Timer timer : device1.get().getTimers()) {
+					System.out.println(timer.getStarTime());
+					System.out.println(timer.getEndTime());
 				}
 			}
 
