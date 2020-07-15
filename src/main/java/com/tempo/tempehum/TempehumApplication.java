@@ -1,9 +1,11 @@
 package com.tempo.tempehum;
 
 import com.tempo.tempehum.accessingdatapostgres.model.Device;
+import com.tempo.tempehum.accessingdatapostgres.model.Humidity;
 import com.tempo.tempehum.accessingdatapostgres.model.Temperature;
 import com.tempo.tempehum.accessingdatapostgres.model.User;
 import com.tempo.tempehum.accessingdatapostgres.repository.DeviceRepository;
+import com.tempo.tempehum.accessingdatapostgres.repository.HumidityRespository;
 import com.tempo.tempehum.accessingdatapostgres.repository.TemperatureRepository;
 import com.tempo.tempehum.accessingdatapostgres.repository.UserRepository;
 import org.slf4j.Logger;
@@ -26,7 +28,9 @@ public class TempehumApplication {
 
 	@Bean
 	public CommandLineRunner mappingDemo(UserRepository userRepository,
-										 DeviceRepository deviceRepository, TemperatureRepository temperatureRepository) {
+										 DeviceRepository deviceRepository,
+										 TemperatureRepository temperatureRepository,
+										 HumidityRespository humidityRespository) {
 		return args -> {
 
 //			// create a new User
@@ -48,6 +52,16 @@ public class TempehumApplication {
 //			// create and save new Temperatures
 //			temperatureRepository.save(new Temperature(27.9, device1,"23-08-12"));
 
+			// create a new User
+//			User user2 = new User("Doe2", "@VERA2");
+//			userRepository.save(user2);
+//			Device device2 = new Device("Raspi3", user2);
+//			deviceRepository.save(device2);
+
+			//create and save new Humidities
+//			Optional<Device> device2 = deviceRepository.findById(8);
+//			humidityRespository.save(new Humidity(20.9, device2.get(),"23-01-12"));
+
 
 			Optional<User> user = userRepository.findById(4);
 
@@ -62,6 +76,15 @@ public class TempehumApplication {
 			if (device.isPresent()) {
 				for (Temperature t : device.get().getTemperatures()) {
 					System.out.println(t.getValue());
+//					log.info(t.getValue());
+				}
+			}
+
+			Optional<Device> device1 = deviceRepository.findById(8);
+//			System.out.println(device);
+			if (device1.isPresent()) {
+				for (Humidity h : device1.get().getHumidities()) {
+					System.out.println(h.getValue());
 //					log.info(t.getValue());
 				}
 			}
