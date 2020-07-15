@@ -1,6 +1,7 @@
 package com.tempo.tempehum.accessingdatapostgres.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name="HUMIDITIES")
@@ -10,7 +11,7 @@ public class Humidity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private double value;
-    private String timeStamp;
+    private Timestamp timeStamp;
 
     @ManyToOne
     @JoinColumn(name = "fk_device")
@@ -19,7 +20,7 @@ public class Humidity {
     public Humidity() {
     }
 
-    public Humidity(double value, Device device, String timeStamp) {
+    public Humidity(double value, Device device, Timestamp timeStamp) {
         this.value = value;
         this.device = device;
         this.timeStamp = timeStamp;
@@ -37,8 +38,8 @@ public class Humidity {
         this.value = value;
     }
 
-    public String getTimeStamp() {return  timeStamp;}
-    public void setTimeStamp(String timeStamp){
+    public Timestamp getTimeStamp() {return  timeStamp;}
+    public void setTimeStamp(Timestamp timeStamp){
         this.timeStamp = timeStamp;
     }
 
