@@ -15,25 +15,11 @@ public class TemperatureContoller {
     @Autowired
     private TemperatureRepository temperatureRepository;
 
-    @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody String addNewtemperature (@RequestParam Device device
-            , @RequestParam String timeStamp, double value) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-
-        Temperature temperature = new Temperature();
-        temperature.setValue(value);
-        temperature.setTimeStamp(timeStamp);
-        temperatureRepository.save(temperature);
-        return "Saved";
-    }
-
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Temperature> getAllTemperatures() {
         // This returns a JSON or XML with the users
         return temperatureRepository.findAll();
     }
-
 }
 
 
