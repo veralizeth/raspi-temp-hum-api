@@ -11,6 +11,7 @@ public class Device implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
+    @Column(unique = true)
     private String deviceName;
 
     @ManyToOne
