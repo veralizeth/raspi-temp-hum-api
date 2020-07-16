@@ -54,7 +54,9 @@ public class TempehumApplication {
 			// create a new User
 //			User user2 = new User("Doe2", "@VERA2");
 //			userRepository.save(user2);
-//			Device device2 = new Device("Raspi3", user2);
+//			Optional<User> user1 = Optional.ofNullable(userRepository.findByname("Doe2"));
+//			System.out.println(user1.get().getName());
+//			Device device2 = new Device("Raspi3", user1.get());
 //			deviceRepository.save(device2);
 
 
@@ -68,13 +70,13 @@ public class TempehumApplication {
 //			Timestamp endTime = Timestamp.valueOf("2020-05-01 12:30:00");
 //			timerRepository.save(new Timer(startTime, endTime, true, device2.get()));
 
-			Optional<User> user = userRepository.findById(4);
-
-			if (user.isPresent()) {
-				for (Device d : user.get().getDevices()) {
-					log.info(d.getDeviceName());
-				}
-			}
+//			Optional<User> user = userRepository.findById(4);
+//
+//			if (user.isPresent()) {
+//				for (Device d : user.get().getDevices()) {
+//					log.info(d.getDeviceName());
+//				}
+//			}
 
 			Optional<Device> device = deviceRepository.findById(8);
 //			System.out.println(device);
