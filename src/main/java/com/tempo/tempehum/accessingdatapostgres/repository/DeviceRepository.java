@@ -10,5 +10,5 @@ import java.util.List;
 // CRUD refers Create, Read, Update, Delete
 
 public interface DeviceRepository extends CrudRepository<Device, Integer> {
-    List<Device> findByUser(User user, Sort sort);
+    Device findByDeviceName(String deviceName);
 }
