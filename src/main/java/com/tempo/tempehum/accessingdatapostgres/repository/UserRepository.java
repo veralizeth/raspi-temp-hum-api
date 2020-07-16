@@ -1,5 +1,4 @@
 package com.tempo.tempehum.accessingdatapostgres.repository;
-
 import org.springframework.data.repository.CrudRepository;
 import com.tempo.tempehum.accessingdatapostgres.model.User;
 
@@ -8,5 +7,5 @@ import com.tempo.tempehum.accessingdatapostgres.model.User;
 // CRUD refers Create, Read, Update, Delete
 
 public interface UserRepository extends CrudRepository<User, Integer> {
-
+    User findByName(String name);
 }
