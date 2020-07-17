@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -45,19 +47,17 @@ public class DevicesController {
         return humidityRepository.findByDevice(device);
     }
 
-//    @GetMapping("/{date}/humidity")
-//    @ResponseBody
-//    public List <Humidity> getDateHum(@PathVariable String date)
-//    {
-//        Humidity humidity = (Humidity) humidityRespository.findByTimeStamp(date);
-//        return humidityRespository.findByTimeStamp(date);
-//    }
+    @GetMapping("/humidity")
+    @ResponseBody
+    public List<Humidity> getHumidity(@RequestParam String timeStampStart, @RequestParam String timeStampEnd) {
 
-//    @GetMapping
-//    public List <Humidity> getHumidityByDate(
-//            @RequestParam(name = "date")
-//            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-//                    LocalDate date) {
-//        return humidityRespository.findByTimeStamp(date);
-//        }
+        Instant startInstant = Instant.parse(timeStampStart);
+        Instant endInstant = Instant.parse(timeStampEnd);
+
+        Date startDate = Date.from(startInstant);
+        Date endDate = Date.from(endInstant);
+
+        return humidityRepository.findAllByTimeStampBetween(startDate, endDate);
+    }
+
 }
