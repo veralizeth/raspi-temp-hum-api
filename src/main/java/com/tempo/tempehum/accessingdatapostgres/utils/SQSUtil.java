@@ -1,5 +1,4 @@
 package com.tempo.tempehum.accessingdatapostgres.utils;
-
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -15,6 +14,7 @@ import com.tempo.tempehum.accessingdatapostgres.model.Humidity;
 import com.tempo.tempehum.accessingdatapostgres.model.Temperature;
 import com.tempo.tempehum.accessingdatapostgres.model.User;
 import com.tempo.tempehum.accessingdatapostgres.repository.*;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -52,7 +53,7 @@ public class SQSUtil {
     private TemperatureRepository temperatureRepository;
 
     @Autowired
-    private HumidityRespository humidityRespository;
+    private HumidityRepository humidityRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(SQSUtil.class);
 
@@ -69,7 +70,7 @@ public class SQSUtil {
     }
 
     public void startListeningToMessages() {
-        
+
         final ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest(sqsUrl)
                 .withMaxNumberOfMessages(1)
                 .withWaitTimeSeconds(3);
@@ -78,39 +79,38 @@ public class SQSUtil {
             Message exceptionMessage = null;
             try {
                 final List<Message> messages = amazonSQS.receiveMessage(receiveMessageRequest).getMessages();
-
                 ObjectMapper mapper = new ObjectMapper();
 
                 for (Message messageObject : messages) {
+
                     exceptionMessage = messageObject;
                     String message = messageObject.getBody();
 
                     ReportedMessage reportedMessage = mapper.readValue(message, ReportedMessage.class);
 
-                    System.out.println(reportedMessage.getReported().getTimestamp());
-
                     String deviceName = reportedMessage.getReported().getDeviceName();
                     double temperature = reportedMessage.getReported().getTemperature();
                     double humidity = reportedMessage.getReported().getHumidity();
                     Timestamp timestamp = reportedMessage.getReported().getTimestamp();
+                    Date date = reportedMessage.getReported().getTimestamp();
 
                     Device device = deviceRepository.findByDeviceName(deviceName);
+
                     User user = UserRepositoryHelper.getDefaultUser(userRepository);
 
                     if (device == null){
                         device = new Device(deviceName, user);
                         deviceRepository.save(device);
-                    }else {
-
-                        Temperature temperatureReported = new Temperature(temperature, device, timestamp);
-                        temperatureRepository.save(temperatureReported);
-
-                        Humidity humidityReported = new Humidity(humidity, device, timestamp);
-                        humidityRespository.save(humidityReported);
-
-                        deleteMessage(messageObject);
                     }
-//                  deleteMessage(messageObject);
+
+                    Temperature temperatureReported = new Temperature(temperature, device, timestamp);
+                    temperatureRepository.save(temperatureReported);
+                    System.out.println(ReflectionToStringBuilder.toString(temperatureReported));
+
+                    Humidity humidityReported = new Humidity(humidity, device, date);
+                    humidityRepository.save(humidityReported);
+                    System.out.println(ReflectionToStringBuilder.toString(humidityReported));
+                    deleteMessage(messageObject);
                 }
             }catch (Exception e) {
                 if (exceptionMessage != null) {
@@ -121,7 +121,6 @@ public class SQSUtil {
     }
 
     private void deleteMessage(Message messageObject) {
-
         final String messageReceiptHandle = messageObject.getReceiptHandle();
         amazonSQS.deleteMessage(new DeleteMessageRequest(sqsUrl, messageReceiptHandle));
 
