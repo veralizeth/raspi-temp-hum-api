@@ -4,7 +4,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name="HUMIDITIES")
+@Table(name="HUMIDITIES", indexes = {
+        @Index(columnList = "id", name = "humidity_id_idx")
+})
 public class Humidity {
 
     @Id
@@ -14,7 +16,7 @@ public class Humidity {
     private Timestamp timeStamp;
 
     @ManyToOne
-    @JoinColumn(name = "fk_device")
+    @JoinColumn(name = "device_id")
     private Device device;
 
     public Humidity() {
