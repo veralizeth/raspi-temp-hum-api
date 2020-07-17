@@ -6,7 +6,9 @@ import java.util.Set;
 
 // marker annotation, which is used to discover persistent entities
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name="DEVICES")
+@Table(name="DEVICES", indexes = {
+        @Index(columnList = "id", name = "device_id_idx")
+})
 public class Device implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -15,16 +17,16 @@ public class Device implements Serializable {
     private String deviceName;
 
     @ManyToOne
-    @JoinColumn(name="fk_user")
+    @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany(mappedBy = "device", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
     private Set<Temperature> temperatures = new HashSet<>();
 
-    @OneToMany(mappedBy = "device", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
     private Set<Humidity> humidities = new HashSet<>();
 
-    @OneToMany(mappedBy = "device", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
     private Set<Timer> timers = new HashSet<>();
 
     public Device() {
