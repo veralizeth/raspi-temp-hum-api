@@ -2,10 +2,14 @@ package com.tempo.tempehum.accessingdatapostgres.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name="USERS")
+@Table(name="USERS", indexes = {
+        @Index(columnList = "id", name = "user_id_idx")
+})
 public class User implements Serializable {
 
     @Id
@@ -16,8 +20,8 @@ public class User implements Serializable {
 
     private String email;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<Device> devices = new ArrayList<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Device> devices = new HashSet<>();
 
     public User() {
     }
@@ -51,6 +55,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public List<Device> getDevices() {return devices;}
+    public Set<Device> getDevices() {return devices;}
 
 }

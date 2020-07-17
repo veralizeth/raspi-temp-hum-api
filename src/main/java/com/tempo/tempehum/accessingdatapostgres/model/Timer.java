@@ -5,7 +5,9 @@ import java.sql.Timestamp;
 
 
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name="TIMERS")
+@Table(name="TIMERS", indexes = {
+        @Index(columnList = "id", name = "timer_id_idx")
+})
 public class Timer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,7 +17,7 @@ public class Timer {
     private boolean isActive;
 
     @ManyToOne
-    @JoinColumn(name = "fk_device")
+    @JoinColumn(name = "device_id")
     private Device device;
 
     public Timer(){

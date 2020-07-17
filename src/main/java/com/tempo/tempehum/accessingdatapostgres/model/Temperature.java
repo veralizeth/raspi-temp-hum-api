@@ -5,7 +5,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name="TEMPERATURES")
+@Table(name="TEMPERATURES", indexes = {
+        @Index(columnList = "id", name = "temperature_id_idx")
+})
 public class Temperature implements Serializable {
 
     @Id
@@ -15,7 +17,7 @@ public class Temperature implements Serializable {
     private Timestamp timeStamp;
 
     @ManyToOne
-    @JoinColumn(name = "fk_device")
+    @JoinColumn(name = "device_id")
     private Device device;
 
     public Temperature() {
