@@ -91,7 +91,7 @@ public class SQSUtil {
                     String deviceName = reportedMessage.getReported().getDeviceName();
                     double temperature = reportedMessage.getReported().getTemperature();
                     double humidity = reportedMessage.getReported().getHumidity();
-                    Timestamp timestamp = reportedMessage.getReported().getTimestamp();
+//                    Timestamp timestamp = reportedMessage.getReported().getTimestamp();
                     Date date = reportedMessage.getReported().getTimestamp();
 
                     Device device = deviceRepository.findByDeviceName(deviceName);
@@ -103,7 +103,7 @@ public class SQSUtil {
                         deviceRepository.save(device);
                     }
 
-                    Temperature temperatureReported = new Temperature(temperature, device, timestamp);
+                    Temperature temperatureReported = new Temperature(temperature, device, date);
                     temperatureRepository.save(temperatureReported);
                     System.out.println(ReflectionToStringBuilder.toString(temperatureReported));
 

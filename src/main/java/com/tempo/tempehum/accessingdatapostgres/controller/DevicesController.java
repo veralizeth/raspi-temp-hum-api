@@ -6,6 +6,7 @@ import com.tempo.tempehum.accessingdatapostgres.repository.DeviceRepository;
 import com.tempo.tempehum.accessingdatapostgres.repository.HumidityRepository;
 import com.tempo.tempehum.accessingdatapostgres.repository.TemperatureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,11 +54,22 @@ public class DevicesController {
 
         Instant startInstant = Instant.parse(timeStampStart);
         Instant endInstant = Instant.parse(timeStampEnd);
-
         Date startDate = Date.from(startInstant);
         Date endDate = Date.from(endInstant);
 
         return humidityRepository.findAllByTimeStampBetween(startDate, endDate);
+    }
+
+    @GetMapping("/temperature")
+    @ResponseBody
+    public List<Temperature> getTemperature(@RequestParam String timeStampStart, @RequestParam String timeStampEnd) {
+
+        Instant startInstant = Instant.parse(timeStampStart);
+        Instant endInstant = Instant.parse(timeStampEnd);
+        Date startDate = Date.from(startInstant);
+        Date endDate = Date.from(endInstant);
+
+        return temperatureRepository.findAllByTimeStampBetween(Sort.by("timeStamp"), startDate, endDate);
     }
 
 }

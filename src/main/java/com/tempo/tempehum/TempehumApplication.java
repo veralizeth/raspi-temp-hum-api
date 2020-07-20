@@ -2,18 +2,15 @@ package com.tempo.tempehum;
 
 import com.tempo.tempehum.accessingdatapostgres.model.*;
 import com.tempo.tempehum.accessingdatapostgres.repository.*;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Optional;
+import java.time.Instant;
+import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class TempehumApplication {
@@ -28,7 +25,7 @@ public class TempehumApplication {
 	public CommandLineRunner mappingDemo(UserRepository userRepository,
 										 DeviceRepository deviceRepository,
 										 TemperatureRepository temperatureRepository,
-										 HumidityRespository humidityRespository,
+										 HumidityRepository humidityRepository,
 										 TimerRepository timerRepository) {
 		return args -> {
 
@@ -78,31 +75,53 @@ public class TempehumApplication {
 //				}
 //			}
 
-			Optional<Device> device = deviceRepository.findById(8);
-//			System.out.println(device);
-			if (device.isPresent()) {
-				for (Temperature t : device.get().getTemperatures()) {
-					System.out.println(t.getValue());
-//					log.info(t.getValue());
-				}
-			}
+//			Optional<Device> device = deviceRepository.findById(8);
+////			System.out.println(device);
+//			if (device.isPresent()) {
+//				for (Temperature t : device.get().getTemperatures()) {
+//					System.out.println(t.getValue());
+////					log.info(t.getValue());
+//				}
+//			}
 
-			Optional<Device> device1 = deviceRepository.findById(8);
-//			System.out.println(device);
-			if (device1.isPresent()) {
-				for (Humidity h : device1.get().getHumidities()) {
-					System.out.println(h.getValue());
-//					log.info(t.getValue());
-				}
-			}
+//			Optional<Device> device1 = deviceRepository.findById(8);
+////			System.out.println(device);
+//			if (device1.isPresent()) {
+//				for (Humidity h : device1.get().getHumidities()) {
+//					System.out.println(h.getValue());
+////					log.info(t.getValue());
+//				}
+//			}
 
-			if (device1.isPresent()) {
-				for (Timer timer : device1.get().getTimers()) {
-					System.out.println(timer.getStarTime());
-					System.out.println(timer.getEndTime());
-				}
-			}
+//			if (device1.isPresent()) {
+//				for (Timer timer : device1.get().getTimers()) {
+//					System.out.println(timer.getStarTime());
+//					System.out.println(timer.getEndTime());
+//				}
+//			}
+//			String string = "2020-07-16 13:49:39";
+//			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+//			LocalDate date = LocalDate.parse(string, formatter);
+//			System.out.println(date); // 2010-01-02
 
-		};
+//			Date startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm z").parse("2020-07-17 00:46:59");
+//			Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm z").parse("2020-07-17 00:50:00");
+
+			Instant startInstant = Instant.parse( "2020-07-17T00:46:59Z" );
+			Instant endInstant = Instant.parse( "2020-07-17T00:50:00Z" );
+
+			Date startDate = Date.from(startInstant);
+			Date endDate = Date.from(endInstant);
+
+			List<Humidity> result = humidityRepository.findAllByTimeStampBetween(startDate, endDate);
+
+			System.out.println(result.size());
+
+//			List<Humidity> all = humidityRepository.findAllByDate(
+//					new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2020-07-17 00:46:59"));
+//
+//			System.out.println(all);
+
+			};
 	}
 }

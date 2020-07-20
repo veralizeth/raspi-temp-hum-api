@@ -1,8 +1,8 @@
 package com.tempo.tempehum.accessingdatapostgres.model;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
+
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name="TEMPERATURES", indexes = {
@@ -14,7 +14,7 @@ public class Temperature implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private double value;
-    private Timestamp timeStamp;
+    private Date timeStamp;
 
     @ManyToOne
     @JoinColumn(name = "device_id")
@@ -23,7 +23,7 @@ public class Temperature implements Serializable {
     public Temperature() {
     }
 
-    public Temperature(double value, Device device, Timestamp timeStamp) {
+    public Temperature(double value, Device device, Date timeStamp) {
         this.value = value;
         this.device = device;
         this.timeStamp = timeStamp;
@@ -41,8 +41,8 @@ public class Temperature implements Serializable {
         this.value = value;
     }
 
-    public Timestamp getTimeStamp() {return  timeStamp;}
-    public void setTimeStamp(Timestamp timeStamp){
+    public Date getTimeStamp() {return  timeStamp;}
+    public void setTimeStamp(Date timeStamp){
         this.timeStamp = timeStamp;
     }
 }
