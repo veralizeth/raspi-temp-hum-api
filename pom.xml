@@ -9,15 +9,18 @@
 		<version>2.3.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.tempo</groupId>
 	<artifactId>tempehum</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+<!--	<packaging>jar</packaging>-->
 	<name>tempehum</name>
 	<description>Java Spring Temperatura and Humidity</description>
 
 	<properties>
 		<java.version>11</java.version>
 		<jackson.version>2.10.0</jackson.version>
+<!--		<start-class>com.tempo.tempehum.TempehumApplication</start-class>-->
 	</properties>
 
 	<dependencies>
@@ -57,7 +60,7 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk-sqs</artifactId>
-			<version>1.11.819</version>
+			<version>1.11.822</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -83,5 +86,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
