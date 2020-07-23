@@ -72,7 +72,6 @@ public class DevicesController {
         return temperatureRepository.findAllByTimeStampBetween(Sort.by("timeStamp"), startDate, endDate);
     }
 
-
     @GetMapping("/temperature/date")
     @ResponseBody
     public Temperature getCurrentTemperature(@RequestParam String timeStamp) {
@@ -86,7 +85,7 @@ public class DevicesController {
 
     @GetMapping("/humidity/date")
     @ResponseBody
-    public Humidity getCurrentHuminity(@RequestParam String timeStamp) {
+    public Humidity getCurrentHumidity(@RequestParam String timeStamp) {
 
         Instant timeStampInstant = Instant.parse(timeStamp);
 
@@ -94,4 +93,21 @@ public class DevicesController {
 
         return humidityRepository.findByTimeStamp(timeStampDate);
     }
+
+    @GetMapping("/temperature/yesterday")
+    @ResponseBody
+    public List <Temperature> getAllYesterdayTemperatures()
+    {
+        return temperatureRepository.findAllTemperaturesNative();
+    }
+
+    @GetMapping("/humidity/yesterday")
+    @ResponseBody
+    public List <Humidity> getAllYesterdayHumidities()
+    {
+        return humidityRepository.findAllHumiditiesNative();
+    }
+
+
+
 }
