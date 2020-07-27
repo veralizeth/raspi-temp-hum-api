@@ -75,7 +75,7 @@ spring.jpa.properties.hibernate.jdbc.time_zone=UTC
 
 Follow this tutorial of [How to create an RDS Instance](https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/)
 
-### Entity–relationship model: 
+### Raspberry PI Environment Monitoring Entity–relationship model:
   ![Entity–relationship model](/relationships.png)
 
 ## AWS SQS Java SDK: 
