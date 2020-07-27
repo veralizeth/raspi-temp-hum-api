@@ -16,6 +16,7 @@ To execute this project there are three repositories:
 * [Introduction and Technologies](#Introduction-and-Technologies)
 * [AWS RDS PostgresQL](#AWS-RDS-PostgresQL)
 * [AWS SQS Java SDK](#AWS-SQS-Java-SDK)
+* [API Endpoints](#API-Endpoints)
 
 
 ## Introduction and Technologies
@@ -81,5 +82,43 @@ Follow this tutorial of [How to create an RDS Instance](https://aws.amazon.com/g
 ## AWS SQS Java SDK: 
 
 Inside of [SQS utils](https://github.com/veralizeth/raspi-temp-hum-api/blob/master/src/main/java/com/tempo/tempehum/accessingdatapostgres/utils/SQSUtil.java) you can see the configurations to read the messages from SQS and save it to the database. 
+
+## API Endpoints
+
+This API supports many users, each of which may have many devices.
+
+### Devices
+
+- **Retrieve list of all Devices:** GET http://ec2-3-15-31-145.us-east-2.compute.amazonaws.com:8080/api/devices
+    
+### Temperature
+
+For this particular project, we have Tempo as a device name: 
+
+- **Retrieve list of all temperatures:** GET http://ec2-3-15-31-145.us-east-2.compute.amazonaws.com:8080/api/Tempo/temperature
+  - accepted params:
+   - deviceName(string) 
+
+- **Retrieve list of all temperatures by specific date:** GET http://ec2-3-15-31-145.us-east-2.compute.amazonaws.com:8080/api/temperature
+ - required params:
+    - timeStampStart(string)
+    - timeStampEnd(string)
+   
+
+### Humidity
+
+For this particular project, we have Tempo as a device name: 
+
+- **Retrieve list of all Humidities :** GET http://ec2-3-15-31-145.us-east-2.compute.amazonaws.com:8080/api/Tempo/humidity
+  - accepted params:
+   - deviceName(string)
+
+- **Retrieve list of all Humidities by start and end date:** GET http://ec2-3-15-31-145.us-east-2.compute.amazonaws.com:8080/api/humidity"
+ - required params:
+    - timeStampStart(string)
+    - timeStampEnd(string)
+ - Date format example:
+    - timeStampStart("2020-07-22T03:38:45.724Z")
+    - timeStampEnd("2020-07-22T03:40:47.724Z")
 
 
