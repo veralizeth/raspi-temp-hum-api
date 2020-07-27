@@ -14,8 +14,9 @@ To execute this project there are three repositories:
 ## Table of Contents
 
 * [Introduction and Technologies](#Introduction-and-Technologies)
+* [AWS RDS PostgresQL](#AWS-RDS-PostgresQL)
 * [AWS SQS Java SDK](#AWS-SQS-Java-SDK)
-* [AWS SQS](#AWS-SQS)
+
 
 ## Introduction and Technologies
 **The problem**: 
@@ -69,3 +70,16 @@ aws.region=us-east-2(your region)
 
 spring.jpa.properties.hibernate.jdbc.time_zone=UTC
 ```
+
+## AWS RDS PostgresQL:
+
+Follow this tutorial of [How to create an RDS Instance](https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/)
+
+### Entity–relationship model: 
+  ![Entity–relationship model](/relationships.png)
+
+## AWS SQS Java SDK: 
+
+Inside of [SQS utils](https://github.com/veralizeth/raspi-temp-hum-api/blob/master/src/main/java/com/tempo/tempehum/accessingdatapostgres/utils/SQSUtil.java) you can see the configurations to read the messages from SQS and save it to the database. 
+
+
