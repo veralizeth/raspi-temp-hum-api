@@ -103,6 +103,8 @@ For this particular project, we have Tempo as a device name:
  - required params:
     - timeStampStart(string)
     - timeStampEnd(string)
+
+- **Retrieve list of all Temperatures from yesterday:** GET http://ec2-3-15-31-145.us-east-2.compute.amazonaws.com:8080/api/temperature/yesterday
    
 
 ### Humidity
@@ -113,12 +115,16 @@ For this particular project, we have Tempo as a device name:
   - accepted params:
    - deviceName(string)
 
-- **Retrieve list of all Humidities by start and end date:** GET http://ec2-3-15-31-145.us-east-2.compute.amazonaws.com:8080/api/humidity"
+- **Retrieve list of all Humidities by start and end date:** GET http://ec2-3-15-31-145.us-east-2.compute.amazonaws.com:8080/api/humidity
  - required params:
     - timeStampStart(string)
     - timeStampEnd(string)
  - Date format example:
     - timeStampStart("2020-07-22T03:38:45.724Z")
     - timeStampEnd("2020-07-22T03:40:47.724Z")
+    
+- **Retrieve list of all Humidities from yesterday:** GET http://ec2-3-15-31-145.us-east-2.compute.amazonaws.com:8080/api/humidity/yesterday
+    
+
 
 
