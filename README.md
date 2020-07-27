@@ -28,15 +28,17 @@ api Restful routes.
     * Built with Java spring boot 11.
     
   * Using Java Spring Boot, JPA Hibernate. To create the models and the 
-  
-  Installation
+
+**What is Java Spring Boot**: 
+
+Spring Boot provides a good platform for Java developers to develop a stand-alone and production-grade spring application that you can just run. You can get started with minimum configurations without the need for an entire Spring configuration setup. 
+
+**How does it work?**
+
+Spring Boot automatically configures your application based on the dependencies you have added to the project by using @EnableAutoConfiguration annotation. For example, if PostgresQL database is on your classpath, but you have not configured any database connection, then Spring Boot auto-configures an in-memory database.
+
+Installation
 ============
 
-* Download and install latest version of Java Spring:
-
-```bash
-    pip install django-jet
-    # or
-    easy_install django-jet
-```
-
+* Download and install latest version of Java Spring boot: 
+1. [Spring Initilizr](https://start.spring.io/)
